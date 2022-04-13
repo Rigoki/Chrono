@@ -13,6 +13,7 @@ namespace Chrono
 {
     public partial class MonChrono : Form
     {
+        private int progress = 0;
         private int sec = 0;
         private int min = 0;
         bool activation = false;
@@ -26,13 +27,7 @@ namespace Chrono
         {
             activation = !activation;
             timer1.Enabled = activation;
-            if(activation)
-            {
-                btntst.Text = "Stop !";
-            } else
-            {
-                btntst.Text = "Start !";
-            }
+            btntst.Text = timer1.Enabled ? "Stop" : "Start";
 
                
         }
@@ -58,12 +53,17 @@ namespace Chrono
            
             sec++;
             label1.Text = $"{min.ToString()} : {sec.ToString()}";
-            if(sec.ToString() == "59")
+            progress++;
+            progressBar1.Value = progress;
+            label2.Text = (progress *100) / 60 + "%";
+            toolTip1.SetToolTip(progressBar1, $"{60 - progress} secondes restantes.");
+            if (sec.ToString() == "59")
             {
                 min++;
                 sec = 0;
+                progress = 0;
             }
-                
+            
 
         }
 
@@ -72,6 +72,12 @@ namespace Chrono
             label1.Text = "0 : 0";
             sec = 0; 
             min = 0;
+            progress = 0;
+            progressBar1.Value = 0;
+            label2.Text = "0%";
+            toolTip1.SetToolTip(progressBar1, "60  secondes restantes.");
         }
+
+       
     }
 }
