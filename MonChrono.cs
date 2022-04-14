@@ -60,8 +60,8 @@ namespace Chrono
             if (sec.ToString() == "59")
             {
                 min++;
-                sec = 0;
-                progress = 0;
+                sec = -1; //Pour qu'au prochain tick, cela passe à 0
+                progress = -1;
             }
             
 
